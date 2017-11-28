@@ -6,8 +6,10 @@ var asyncjs = require('async');
 if (!jinst.isJvmCreated()) {
     jinst.addOption("-Xrs");
     //convert between version
-    // jinst.setupClasspath(['./drivers/ojdbc8.jar']);
-    jinst.setupClasspath(['./drivers/ojdbc7.jar']);
+    // 지누
+    jinst.setupClasspath(['./drivers/ojdbc8.jar']);
+    // 조주
+    // jinst.setupClasspath(['./drivers/ojdbc7.jar']);
 }
 
 var db_config = require('./db_config.json');

@@ -177,5 +177,7 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/node,macos,windows,webstorm
 
+# Our DB-project ignore files
+package-lock.json
 db/db_config.json
 drivers

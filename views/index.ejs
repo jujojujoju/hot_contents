@@ -1,5 +1,6 @@
 <% include header.ejs %>
 
+
 <div class="container">
 
     <form id="loginForm" method="post" action="/login">
@@ -13,16 +14,10 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
-
+    <script>
+        <% if (error) { %>
+        alert("로그인 실패");
+        <% } %>
+    </script>
 </div>
-
-</body>
-
-<script>
-<% if (error) { %>
-    alert("로그인 실패");
-<% } %>
-
-</script>
-
-</html>
+<% include footer.ejs %>

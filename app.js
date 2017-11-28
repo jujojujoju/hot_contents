@@ -47,7 +47,9 @@ db_init.init(function (err) {
     if (err) {
         console.log(err);
     } else {
-        server.listen(port);
+        server.listen(port, function(){
+            console.log('Server running at : ' + port);
+        });
     }
 });
 
