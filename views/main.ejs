@@ -1,0 +1,18 @@
+<% include header.ejs %>
+<button type="button" class="btn btn-danger" onclick="logout()">Log out</button>
+<button type="button" class="btn btn-default" onclick="board()">board</button>
+
+main page
+
+</body>
+
+<script type="text/javascript">
+    function logout() {
+        location.href = "/logout";
+    }
+    function board() {
+        location.href = "/board";
+    }
+</script>
+
+</html>

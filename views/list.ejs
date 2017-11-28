@@ -1,0 +1,35 @@
+<% include header.ejs %>
+
+<h1><%= title %></h1>
+
+<a href="/board/write">글쓰기로 이동</a>
+<br>
+<br>
+
+<table border="1">
+    <tr>
+        <td>번호</td>
+        <td>제목</td>
+        <!--<td>출처</td>-->
+        <!--<td>조회수</td>-->
+        <!--<td>변경일</td>-->
+    </tr>
+
+    <%
+    for(var i = 0; i < rows.length; i++)
+    {
+    %>
+    <tr>
+        <td><%= i + 1 %></td>
+        <td><a target="_blank" href="<%= rows[i].LINK %>"><%= rows[i].TITLE %></a></td>
+        <!--<td>디씨</td>-->
+   </tr>
+
+    <%
+    }
+    %>
+</table>
+
+</body>
+</html>
+
