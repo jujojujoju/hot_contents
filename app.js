@@ -9,12 +9,25 @@ var session = require('express-session');
 // var sessionStore = new require('session-memory-store')(session)();
 var myCookieParser = cookieParser('@#@$MYSIGN#@$#$');
 
+//page
 var index = require('./routes/index');
 var users = require('./routes/users');
-var db_init = require('./db/db_init');
 var board = require('./routes/board');
+var signup = require('./routes/signup');
+
+
+//var join = equire('./routes/join');
+//database
+var db_init = require('./db/db_init');
 
 var app = express();
+
+//----------login, join module----------//
+//using passport,flash
+var passport = require('passport');
+var flash = require('connect-flash');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +39,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(myCookieParser);
 app.use(express.static(path.join(__dirname, 'public')));
+
+//----------passport init----------//
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//----------passport strategy setting----------//
+/*var LocalStrategy =require('passport-local').strategy;
+
+passport.use('local-login',new LocalStrategy({
+    //field setting
+    /!*
+        usernameField:'email',
+        passwordField:'password',
+        passReqToCallback:true //콜백에 전달
+    *!/
+},function(req,username,password,done){
+    //local auth
+    console.log('passport, local-login called: ' + username + ','
+        + password);
+
+}));*/
+
 app.use(session({
     secret: '@#@$MYSIGN#@$#$',
     key: "connect.sid",
@@ -34,17 +70,24 @@ app.use(session({
     // store: sessionStore
     //cookie  : { maxAge  : new Date(Date.now() + (10 * 1000 * 1)) }
 }));
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/board', board);
+app.use('/signup',signup);
 
-var port = 1111;
-app.set('port', port);
+var port = 8650;
+app.set('port', port,function (err) {
+    console.log(err)
+});
 
-var server = http.createServer(app);
+var server = http.createServer(app,function (err) {
+    console.log(err);
+});
 
 db_init.init(function (err) {
     if (err) {
+        console.log("왜이래!");
         console.log(err);
     } else {
         server.listen(port, function(){
@@ -55,7 +98,7 @@ db_init.init(function (err) {
 
 
 // catch 404 and forward to error handler
-app.use(function (r1eq, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);

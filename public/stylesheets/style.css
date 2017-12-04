@@ -21,6 +21,10 @@ form {
     background: #eee;
 }
 
+#birth-select {
+    width: 400px;
+}
+
 
 
 .sidebar {
