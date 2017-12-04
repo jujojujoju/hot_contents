@@ -1,0 +1,125 @@
+<% include header.ejs %>
+
+<div class="container">
+
+    <form id="SignUpForm" method="post" action="/signup/finish">
+        <div class="form-group">
+            <label>아이디</label>
+            <input type="text" class="form-control" name="user_id" placeholder="ID">
+            <button id="checkBtn">중복확인</button>
+            <span id="checkResult" value = ""></span><br/>
+        </div>
+
+        <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+        <label>비밀번호 확인</label>
+        <input type="password" class="form-control" name="repassword" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <label>성별</label>
+            <br>
+            <input type="radio"  name="gender" value=1 checked = "checked">남자
+            <input type="radio"  name="gender" value=2>여자
+        </div>
+        <div>
+            <label>생일</label>
+            <br>
+            <select name="year" style="width:60px;">
+                <option  name = 'y' value="2017" selected = "selected">2017 </option>
+                <% for(var i = 1900 ; i < 2018;i++){ %>
+                <option  name = 'y' value=<%= i.toString() %>> <%= i %> </option>
+                <%  } %>
+                %>
+            </select>
+
+            <select name="month" style="width:35px;">
+                <option  name = 'm' value="12" selected = "selected">12</option>
+                <% for(var i = 1 ; i < 12;i++){ %>
+                <option  name = 'm' value=<%= i.toString() %>> <%= i %> </option>
+                <%  } %>
+                %>
+            </select>
+
+            <select name="day" style="width:35px;">
+                <option  name = 'd' value="31" selected = "selected">31</option>
+                <% for(var i = 1 ; i < 31;i++){ %>
+                <option  name = 'd' value=<%= i.toString() %>> <%= i %> </option>
+                <%  } %>
+                %>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-default">제출</button>
+        <button type="reset" class="btn btn-default">취소</button>
+    </form>
+</div>
+<script type="text/javascript">
+    (function(){
+        $(document).ready(function() {
+            $('#SignUpForm').submit(function(){
+                var $usernameInput = $('#SignUpForm input[name=user_id]');
+                var $passwordInput = $('#SignUpForm input[name=password]');
+                var $passwordInput2 = $('#SignUpForm input[name=repassword]');
+                var $chkidSpan =$('#checkResult').text();
+                if($chkidSpan != "사용 가능"){
+
+                    alert($chkidSpan+"아이디 중복확인을 해주세요.");
+                    $usernameInput.focus();
+                    return false;
+                }
+
+                if(!$usernameInput.val()){
+                    alert("아이디를 입력해주세요.");
+                    $usernameInput.focus();
+                    return false;
+                }
+
+                if(!$passwordInput.val()){
+                    alert("패스워드를 입력해주세요.");
+                    $passwordInput.focus();
+                    return false;
+                }
+                if(!$passwordInput2.val()){
+                    alert("확인 패스워드를 입력해주세요.");
+                    $passwordInput2.focus();
+                    return false;
+                }
+                if($passwordInput.val() !== $passwordInput2.val()){
+                    alert("패스워드와 확인용패스워드를 똑같이 입력해주세요.");
+                    $passwordInput2.focus();
+                    return false;
+                }
+                return true;
+            });
+        });
+    })();
+</script>
+
+<script>
+    $("#checkBtn").click(function(){
+        //입력한 id를 읽어온다.
+        var inputId=$('#SignUpForm input[name=user_id]').val();//input 속성이면서 name이 user_id인것을 찾아 밸류값을 가져온다.
+        //서버에 ajax post 방식으로 전송해서 응답받기
+        // $.post(url, data, callback)
+        $.post("/signup/checkId",{"inputId":inputId}, function(data){
+            // data -> {isPossible:true} 혹은 {isPossible:false} 의 구조를 갖고 있는 Object 이다.
+            if(data.isPossible === true){
+                // alert("사용할 수 있는 아이디 입니다!");
+                $("#checkResult").text("사용 가능").css("color", "green");
+            }
+            if(data.isPossible === false)
+            {
+                // alert("사용할 수 없는 아이디 입니다!");
+                $("#checkResult").text("사용 불가능").css("color", "red");
+            }
+        });
+        return false;//폼 전송 막기. submit form안에서 button을 클릭하게 되면 submit으로 인식해 버린다. 다음페이지로 넘어가지 않게 false를 해주자!
+    });
+</script>
+<% include footer.ejs %>
+

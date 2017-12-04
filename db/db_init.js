@@ -8,12 +8,30 @@ if (!jinst.isJvmCreated()) {
     //convert between version
     // 지누
     jinst.setupClasspath(['./drivers/ojdbc8.jar']);
+
+
+    //*******************tibero version
+    //jinst.setupClasspath(['./drivers/tibero6-jdbc.jar']);
+
+
+    console.log("디비 연결 성공");
     // 조주
     // jinst.setupClasspath(['./drivers/ojdbc7.jar']);
 }
 
-var db_config = require('./db_config.json');
-var db = new JDBC(db_config);
+//var db_config = require('./db_config.json');
+// var db_config = {
+//     // Required
+//     url: 'jdbc:tibero:thin:@localhost:8629:tibero',
+//
+//     // Optional
+//     drivername: 'com.tmax.tibero.jdbc.TbDriver',
+//     minpoolsize: 10,
+//     maxpoolsize: 100,
+//
+//     properties: {user: "HR", password: "tibero"}
+// };
+var db = new JDBC(require('./db_config.json'));
 
 var db_init = {
     init: function (callback) {
@@ -25,6 +43,7 @@ var db_init = {
         console.log('connectioned');
         db.reserve(function (err, connObj) {
             if (!connObj) {
+                console.log(err)
             } else {
                 console.log("Using connection: " + connObj.uuid);
                 connObj.conn.setSchema("TEST", function (err) {
