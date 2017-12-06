@@ -61,8 +61,6 @@ module.exports.getBoardList = function (page, callback) {
                         if(endPage > totalPage) {
                             endPage = totalPage;
                         }
-                        // 전체 글이 존재하는 갯수
-                        var max = totalCount - ((page-1) * size);
 
                         var query = "SELECT *\n" +
                         "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE FROM BOARD a) b\n" +
@@ -90,10 +88,9 @@ module.exports.getBoardList = function (page, callback) {
                                             pageSize : pageSize,
                                             startPage : startPage,
                                             endPage : endPage,
-                                            totalPage : totalPage,
-                                            max : max
+                                            totalPage : totalPage
                                         }
-                                        console.log('하.. siba 됬네');
+                                        console.log('성공데스네');
                                         callback(data);
                                     });
 
@@ -102,8 +99,6 @@ module.exports.getBoardList = function (page, callback) {
                         });
                     });
                     // return;
-
-
 
 
                 });

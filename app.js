@@ -9,15 +9,15 @@ var session = require('express-session');
 // var sessionStore = new require('session-memory-store')(session)();
 var myCookieParser = cookieParser('@#@$MYSIGN#@$#$');
 
-//page
+// Add routes path
 var index = require('./routes/index');
 var users = require('./routes/users');
 var board = require('./routes/board');
 var signup = require('./routes/signup');
 
-
 //var join = equire('./routes/join');
-//database
+
+// database
 var db_init = require('./db/db_init');
 
 var app = express();
@@ -26,7 +26,6 @@ var app = express();
 //using passport,flash
 var passport = require('passport');
 var flash = require('connect-flash');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,6 +70,7 @@ app.use(session({
     //cookie  : { maxAge  : new Date(Date.now() + (10 * 1000 * 1)) }
 }));
 
+// routing
 app.use('/', index);
 app.use('/users', users);
 app.use('/board', board);
@@ -81,7 +81,7 @@ app.set('port', port, function (err) {
     console.log(err);
 });
 
-var server = http.createServer(app,function (err) {
+var server = http.createServer(app, function (err) {
     console.log(err);
 });
 
@@ -115,5 +115,3 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-module.exports = app;

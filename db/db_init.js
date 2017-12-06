@@ -12,7 +12,6 @@ if (!jinst.isJvmCreated()) {
     //*******************tibero version
     //jinst.setupClasspath(['./drivers/tibero6-jdbc.jar']);
 
-    console.log("디비 연결 성공");
     // 조주
     // jinst.setupClasspath(['./drivers/ojdbc7.jar']);
 }
@@ -33,6 +32,7 @@ var db = new JDBC(require('./db_config.json'));
 
 var db_init = {
     init: function (callback) {
+        console.log("디비 연결 성공");
         db.initialize(function (err) {
             callback(err);
         });
