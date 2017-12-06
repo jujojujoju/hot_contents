@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db_init = require('../db/db_init');
 var asyncjs = require('async');
-var db_ = require("./../db/dbquery");
+var db_ = require("../db/dbquery");
 
 
 
@@ -13,15 +13,21 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/list/:page', function (req, res, next) {
-    db_.getBoardList(req.params.page, function(results) {
-        if (results) {
-            if (results.length > 0) {
-                for (i = 0; i < results.length; i++) {
-                    console.log("ID: " + results[i].BOARD_IDX + ", TITLE: " + results[i].TITLE + ", LINK : " + results[i].LINK);
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList(page, function(data) {
+
+        // res.render('board/list', {title: '게시판', rows: results});
+        if (data) {
+            if (data.results.length > 0) {
+                for (var i = 0; i < data.results.length; i++) {
+                    console.log("ID: " + data.results[i].BOARD_IDX + ", TITLE: " + data.results[i].TITLE + ", LINK : " + data.results[i].LINK);
                 }
             }
             console.log("result ok");
-            res.render('list', {title: '게시판', rows: results});
+            console.log("!@#data", data);
+            res.render('board/list', data);
+
         } else {
             console.log('result error');
         }

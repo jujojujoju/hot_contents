@@ -6,24 +6,9 @@
 <br>
 <br>
 
-<!--<table border="1">-->
-    <!--<tr>-->
-        <!--<td>번호</td>-->
-        <!--<td>제목</td>-->
-        <!--<td>출처</td>-->
-        <!--&lt;!&ndash;<td>조회수</td>&ndash;&gt;-->
-        <!--&lt;!&ndash;<td>변경일</td>&ndash;&gt;-->
-    <!--</tr>-->
-
-
-<!--</table>-->
-
 <div class="col-sm-10">
     <table class="table table-bordered table-hover">
         <tr>
-            <!--<th>제목</th>-->
-            <!--<th>작성일</th>-->
-            <!--<th>삭제</th>-->
             <th>번호</th>
             <th>제목</th>
             <th>출처</th>
@@ -31,26 +16,25 @@
             <!--<th>변경일</td>-->
         </tr>
 
-    <%
-    for(var i = 0; i < rows.length; i++)
-    {
-    %>
-    <tr>
-        <td><%= i + 1 %></td>
-        <td><a href="<%= rows[i].LINK %>"><%= rows[i].TITLE %></a></td>
+        <%
+        for(var i = 0; i < rows.length; i++)
+        {
+        %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td><a href="<%= rows[i].LINK %>"><%= rows[i].TITLE %></a></td>
 
-        <% if ( rows[i].TYPE == 1) { %>
-        <td>디씨</td>
-        <%}%>
-        <% if ( rows[i].TYPE == 2) { %>
-        <td>오유</td>
-        <%}%>
-    </tr>
-    <%
-    }
-    %>
+            <% if ( rows[i].TYPE == 1) { %>
+            <td>디씨</td>
+            <%}%>
+            <% if ( rows[i].TYPE == 2) { %>
+            <td>오유</td>
+            <%}%>
+        </tr>
+        <%
+        }
+        %>
     </table>
-    <!--<a href="/admin/products/write" class="btn btn-default">작성하기</a>-->
 </div>
 
 
