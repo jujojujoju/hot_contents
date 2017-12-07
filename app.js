@@ -10,10 +10,10 @@ var session = require('express-session');
 var myCookieParser = cookieParser('@#@$MYSIGN#@$#$');
 
 // Add routes path
-var index = require('./routes/index');
-var users = require('./routes/users');
+var home = require('./routes/home');
 var board = require('./routes/board');
-var signup = require('./routes/signup');
+var account = require('./routes/account');
+// var signup = require('./routes/signup');
 
 //var join = equire('./routes/join');
 
@@ -71,10 +71,9 @@ app.use(session({
 }));
 
 // routing
-app.use('/', index);
-app.use('/users', users);
+app.use('/', home);
 app.use('/board', board);
-app.use('/signup',signup);
+app.use('/account', account);
 
 var port = 8650;
 app.set('port', port, function (err) {
@@ -96,7 +95,6 @@ db_init.init(function (err) {
         });
     }
 });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
