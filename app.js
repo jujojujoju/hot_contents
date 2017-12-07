@@ -77,15 +77,14 @@ app.use('/board', board);
 app.use('/signup',signup);
 
 var port = 8650;
-app.set('port', port, function (err) {
-    console.log(err);
+app.set('port', port,function (err) {
+    console.log(err)
 });
 
 var server = http.createServer(app,function (err) {
     console.log(err);
 });
 
-// db initialize
 db_init.init(function (err) {
     if (err) {
         console.log("왜이래!");

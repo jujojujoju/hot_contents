@@ -4,7 +4,7 @@ var crawler = require('./../crawler/crawler1');
 var cheerio = require("cheerio");
 var url = require("url");
 var db = require('../db/db_init');
-var db_ = require("../db/dbquery");
+var db_ = require("./../db/dbquery");
 var app = require('../app');
 
 function isLogin(req, res, next) {
@@ -57,8 +57,7 @@ router.post('/login', isNotLogin, function (req, res, next) {
         }
         else{
             req.session.info = {
-                user_id : req.body.user_id,
-                password : req.body.password
+                user_id : req.body.user_id, password : req.body.password
             };
             res.redirect("/main");
         }
@@ -80,6 +79,5 @@ router.post('/login', isNotLogin, function (req, res, next) {
 router.post('/',function(req,res){
     console.log(req.body.user_id);
     res.redirect("/main");
-});
-
+})
 module.exports = router;

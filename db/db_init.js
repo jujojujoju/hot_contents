@@ -9,8 +9,10 @@ if (!jinst.isJvmCreated()) {
     // 지누
     jinst.setupClasspath(['./drivers/ojdbc8.jar']);
 
+
     //*******************tibero version
     //jinst.setupClasspath(['./drivers/tibero6-jdbc.jar']);
+
 
     console.log("디비 연결 성공");
     // 조주
@@ -48,7 +50,7 @@ var db_init = {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log("change schema success");
+                        console.log("change scheme success");
                         callback(connObj);
                     }
                 });
