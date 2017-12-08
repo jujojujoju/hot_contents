@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <form id="SignUpForm" method="post" action="/signup/finish">
+    <form id="SignUpForm" method="post" action="/account/signup/finish">
         <div class="form-group">
             <label>아이디</label>
             <input type="text" class="form-control" name="user_id" placeholder="ID">
@@ -107,7 +107,7 @@
         var inputId=$('#SignUpForm input[name=user_id]').val();//input 속성이면서 name이 user_id인것을 찾아 밸류값을 가져온다.
         //서버에 ajax post 방식으로 전송해서 응답받기
         // $.post(url, data, callback)
-        $.post("/signup/checkId",{"inputId":inputId}, function(data){
+        $.post("/account/signup/checkId",{"inputId":inputId}, function(data){
             // data -> {isPossible:true} 혹은 {isPossible:false} 의 구조를 갖고 있는 Object 이다.
             if(data.isPossible === true){
                 // alert("사용할 수 있는 아이디 입니다!");
@@ -122,5 +122,6 @@
         return false;//폼 전송 막기. submit form안에서 button을 클릭하게 되면 submit으로 인식해 버린다. 다음페이지로 넘어가지 않게 false를 해주자!
     });
 </script>
+
 <% include ../footer.ejs %>
 

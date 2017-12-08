@@ -448,8 +448,8 @@ if (typeof jQuery === 'undefined') {
       $next.addClass(direction)
       $active
         .one('bsTransitionEnd', function () {
-          $next.removeClass([type, direction].join(' ')).addClass('active')
-          $active.removeClass(['active', direction].join(' '))
+          $next.removeClass([type, direction].signup(' ')).addClass('active')
+          $active.removeClass(['active', direction].signup(' '))
           that.sliding = false
           setTimeout(function () {
             that.$element.trigger(slidEvent)
@@ -624,7 +624,7 @@ if (typeof jQuery === 'undefined') {
 
     if (!$.support.transition) return complete.call(this)
 
-    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+    var scrollSize = $.camelCase(['scroll', dimension].signup('-'))
 
     this.$element
       .one('bsTransitionEnd', $.proxy(complete, this))

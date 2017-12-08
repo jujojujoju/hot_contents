@@ -10,19 +10,16 @@ var session = require('express-session');
 var myCookieParser = cookieParser('@#@$MYSIGN#@$#$');
 
 // Add routes path
-var home = require('./routes/home');
+var index = require('./routes/index');
 var board = require('./routes/board');
 var account = require('./routes/account');
-// var signup = require('./routes/signup');
-
-//var join = equire('./routes/join');
 
 // database
 var db_init = require('./db/db_init');
 
 var app = express();
 
-//----------login, join module----------//
+//----------login, signup module----------//
 //using passport,flash
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -32,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.signup(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -43,6 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+app.use(function (req, res, next) {
+    app.locals.isLogin = req.isAuthenticated();
+    // app.locals.userData = req.user;
+    next();
+});
 
 //----------passport strategy setting----------//
 /*var LocalStrategy =require('passport-local').strategy;
@@ -61,6 +64,7 @@ passport.use('local-login',new LocalStrategy({
 
 }));*/
 
+
 app.use(session({
     secret: '@#@$MYSIGN#@$#$',
     key: "connect.sid",
@@ -71,7 +75,7 @@ app.use(session({
 }));
 
 // routing
-app.use('/', home);
+app.use('/', index);
 app.use('/board', board);
 app.use('/account', account);
 

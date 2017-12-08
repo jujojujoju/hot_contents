@@ -32,8 +32,9 @@ var db = new JDBC(require('./db_config.json'));
 
 var db_init = {
     init: function (callback) {
-        console.log("디비 연결 성공");
+
         db.initialize(function (err) {
+            console.log("디비 연결 성공");
             callback(err);
         });
     },
