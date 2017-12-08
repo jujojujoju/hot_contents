@@ -41,17 +41,15 @@ module.exports.getBoardList = function (page, callback) {
             } else {
                 var sql = "select count(*) cnt from board";
                 statement.executeQuery(sql, function(err, resultset){
-                    console.log("일단은 성공", err);
+
                     var size = 10;  // 한 페이지에 보여줄 개수
                     var begin = (page - 1) * size; // 시작 글
                     var end = page * size;
 
                     resultset.toObjArray(function (err, results) {
                         var totalCount = Number(results[0].CNT); // 크롤링 해온 전체 글의 갯수
-                        console.log('total? ', totalCount);
 
                         var totalPage = Math.ceil(totalCount / size);  // 전체 페이지의 수 (116 / 10 = 12..)
-                        console.log('totalPage? ', totalPage);
                         var pageSize = 10; // 페이지 링크의 개수, 10개씩 보여주고 10개씩 넘어감
 
                         // 1~10페이지는 1로, 11~20페이지는 11로 --> 숫자 첫째자리수를 1로 고정
@@ -61,8 +59,6 @@ module.exports.getBoardList = function (page, callback) {
                         if(endPage > totalPage) {
                             endPage = totalPage;
                         }
-                        // 전체 글이 존재하는 갯수
-                        var max = totalCount - ((page-1) * size);
 
                         var query = "SELECT *\n" +
                         "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE FROM BOARD a) b\n" +
@@ -71,18 +67,17 @@ module.exports.getBoardList = function (page, callback) {
                         statement.executeQuery(query, function (err, resultset) {
                             if (err) {
                                 console.log(err);
-                                console.log("쿼리실행전 에러");
+                                console.log("Error before executeQuery");
                                 db_init.release(connObj, function () {
                                 });
                                 callback(false);
                             } else {
-                                console.log('query? ', query);
+                                console.log('Get list query : ', query);
                                 console.log("휴 다행..");
                                 // console.log("rows", rows);
 
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
-
                                         var data = {
                                             title : "게시판",
                                             results : results,
@@ -91,9 +86,8 @@ module.exports.getBoardList = function (page, callback) {
                                             startPage : startPage,
                                             endPage : endPage,
                                             totalPage : totalPage,
-                                            max : max
                                         }
-                                        console.log('하.. siba 됬네');
+                                        console.log('성공데스네');
                                         callback(data);
                                     });
 
@@ -102,8 +96,6 @@ module.exports.getBoardList = function (page, callback) {
                         });
                     });
                     // return;
-
-
 
 
                 });
@@ -137,7 +129,7 @@ module.exports.chkId = function(ID, callback) {
                             resultset.toObjArray(function (err, results) {
                                 db_init.release(connObj, function (err) {
                                    // console.log(results[0].USER_ID);
-                                    callback(resultset);
+                                    callback(results);
                                 });
                             });
                         }
@@ -147,6 +139,7 @@ module.exports.chkId = function(ID, callback) {
     });
 };
 
+// 회원가입
 module.exports.signup = function(input, callback) {
     db_init.reserve(function (connObj) {
         var conn = connObj.conn;

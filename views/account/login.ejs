@@ -1,9 +1,8 @@
-<% include header.ejs %>
-
+<% include ../header.ejs %>
 
 <div class="container">
 
-    <form id="loginForm" method="post" action="/login">
+    <form id="loginForm" method="post" action="/account/login">
         <div class="form-group">
             <label>아이디</label>
             <input type="text" class="form-control" name="user_id" placeholder="ID">
@@ -20,4 +19,5 @@
         <% } %>
     </script>
 </div>
-<% include footer.ejs %>
+
+<% include ../footer.ejs %>

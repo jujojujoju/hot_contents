@@ -9,31 +9,27 @@ var session = require('express-session');
 // var sessionStore = new require('session-memory-store')(session)();
 var myCookieParser = cookieParser('@#@$MYSIGN#@$#$');
 
-//page
+// Add routes path
 var index = require('./routes/index');
-var users = require('./routes/users');
 var board = require('./routes/board');
-var signup = require('./routes/signup');
+var account = require('./routes/account');
 
-
-//var join = equire('./routes/join');
-//database
+// database
 var db_init = require('./db/db_init');
 
 var app = express();
 
-//----------login, join module----------//
+//----------login, signup module----------//
 //using passport,flash
 var passport = require('passport');
 var flash = require('connect-flash');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.signup(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -44,6 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+app.use(function (req, res, next) {
+    app.locals.isLogin = req.isAuthenticated();
+    // app.locals.userData = req.user;
+    next();
+});
 
 //----------passport strategy setting----------//
 /*var LocalStrategy =require('passport-local').strategy;
@@ -62,6 +64,7 @@ passport.use('local-login',new LocalStrategy({
 
 }));*/
 
+
 app.use(session({
     secret: '@#@$MYSIGN#@$#$',
     key: "connect.sid",
@@ -71,17 +74,17 @@ app.use(session({
     //cookie  : { maxAge  : new Date(Date.now() + (10 * 1000 * 1)) }
 }));
 
+// routing
 app.use('/', index);
-app.use('/users', users);
 app.use('/board', board);
-app.use('/signup',signup);
+app.use('/account', account);
 
 var port = 8650;
 app.set('port', port, function (err) {
     console.log(err);
 });
 
-var server = http.createServer(app,function (err) {
+var server = http.createServer(app, function (err) {
     console.log(err);
 });
 
@@ -96,7 +99,6 @@ db_init.init(function (err) {
         });
     }
 });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -115,5 +117,3 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-module.exports = app;

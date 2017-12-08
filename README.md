@@ -1,5 +1,5 @@
 # hot_contents
-Many community sites collect hot content and provide useful information.
+Collecting several hot contents from Well-known community sites and provide useful information.
 
 ## development setting
 
@@ -8,7 +8,7 @@ Run the following command to install node modules from package.json dependencies
 ```sh
 npm install
 ```
-Import the db_config.json and driver for the database.
+Need to import db_config.json and driver for database setting.
 
 ## server start
 
