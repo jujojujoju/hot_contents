@@ -163,10 +163,19 @@ module.exports.getBoardList_M10 = function (page, callback) {
                 callback(false);
 
             } else {
-                var sql = "select count(*) cnt from board";
+
+                var sql = "select count(*) CNT\n" +
+                    "FROM(SELECT *\n" +
+                    "FROM BOARD\n"+
+                    "WHERE TIME BETWEEN SYSDATE-1 AND SYSDATE)\n" +
+                    "WHERE ROWNUM BETWEEN 1 AND 10\n"+
+                    "ORDER BY M10";
+
                 console.log("@@query before execute");
                 statement.executeQuery(sql, function(err, resultset){
-
+                    if(err){
+                        console.log("첫 쿼리 실행후 에러");
+                    }
                     var size = 10;  // 한 페이지에 보여줄 개수
                     var begin = (page - 1) * size + 1; // 시작 글
                     var end = page * size;
@@ -185,9 +194,9 @@ module.exports.getBoardList_M10 = function (page, callback) {
                             endPage = totalPage;
                         }
 
-                        var query = "SELECT *\n" +
-                            "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TIME, a.TOTAL, a.M10 FROM BOARD a \n" +
-                            "WHERE a.TIME BETWEEN sysdate-1 AND sysdate \n" +
+                        var query = "SELECT *" +
+                            "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TIME, a.TOTAL, a.M10 FROM BOARD a\n" +
+                            "WHERE a.TIME BETWEEN sysdate-1 AND sysdate\n" +
                             "ORDER BY M10 DESC, TOTAL DESC) b\n" +
                             "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
 
@@ -343,13 +352,14 @@ module.exports.post_clicked = function (data, callback) {
                 // var user
                 if(data.user_type == "UNKNOWN")
                 {
-                    query = "UPDATE BOARD " +
+                    query = "UPDATE BOARD" +
                         "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                         "UNKNOWN = NVL(UNKNOWN, 0) + 1 " +
                         "WHERE IDX=" + data.post_idx;
                 }else
                 {
-
+                    //남자 여자 구분해서 넣어주고
+                    //
                 }
                 console.log(query);
                 statement.executeUpdate(query,

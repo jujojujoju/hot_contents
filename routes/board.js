@@ -67,23 +67,28 @@ router.get('/M10list/:page', function (req, res, next) {
 router.post('/point', function (req, res, next) {
     var cur = new Date();
     console.log(cur);
+    var data
     if (req.session.info == undefined) {
-        var data = {
+        data = {
             user_type : "UNKNOWN",
             post_idx : req.body.point,
             user_id : cur.toString().replace(/\s/g, '')
-            // user_id: req.session.info.user_id,
-            // user_gender: req.session.info.user_gender,
-            // user_birth: req.session.info.user_birth
         };
-        // console.log(data.post_idx)
-        db_.post_clicked(data, function (result) {
-            console.log("total point update complete")
-        });
-    }else
-    {
-
     }
+    //로그인을 한 상태에서 게시글을 클릭하였을때!
+    else
+    {
+        data = {
+            user_type : "KNOWN",
+            post_idx : req.body.point,
+            user_id : req.session.info.user_id,
+            gender :req.session.info.gender,
+            birth : req.session.info.birth
+        };
+    }
+    db_.post_clicked(data, function (result) {
+        console.log("total point update complete")
+    });
 
 });
 

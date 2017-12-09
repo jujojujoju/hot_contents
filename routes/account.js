@@ -96,24 +96,8 @@ router.post('/login', isNotLogin, function (req, res, next) {
             res.redirect('/');
         }
     })
-    ////
-
-    /*
-    if (req.body.user_id == 'a') {
-        req.session.info = {
-            user_id: req.body.user_id, password: req.body.password
-        };
-        res.redirect("/main");
-    }
-    else
-        res.redirect("/?login_error=1");
-    */
 });
 
-
-// router.get('../', isLogin, function (req, res, next) {
-//     console.log('main page');
-// });
 
 
 
@@ -122,13 +106,6 @@ router.get('/logout', function (req, res) {
         res.redirect('/');
     });
 });
-
-//
-// router.post('/',function(req,res){
-//     console.log(req.body.user_id);
-//     res.redirect("/");
-// });
-
 
 
 module.exports = router;
