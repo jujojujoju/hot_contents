@@ -79,7 +79,7 @@ router.post('/point', function (req, res, next) {
             user_type : "KNOWN",
             post_idx : req.body.idx,
             user_id : req.session.info.user_id,
-            gender :req.session.info.GENDER,
+            gender :req.session.info.gender,
             age : req.session.info.user_age
         };
     }
@@ -88,7 +88,7 @@ router.post('/point', function (req, res, next) {
         // result
         // console.log(result);
         // res.send(result);
-        res.redirect('/',result)
+        // res.redirect('/',result)
     });
 
 });
