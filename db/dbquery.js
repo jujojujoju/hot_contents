@@ -352,7 +352,7 @@ module.exports.post_clicked = function (data, callback) {
                 // var user
                 if(data.user_type == "UNKNOWN")
                 {
-                    query = "UPDATE BOARD" +
+                    query = "UPDATE BOARD " +
                         "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                         "UNKNOWN = NVL(UNKNOWN, 0) + 1 " +
                         "WHERE IDX=" + data.post_idx;
@@ -365,7 +365,7 @@ module.exports.post_clicked = function (data, callback) {
                 statement.executeUpdate(query,
                     function (err, c1) {
                         if (err) {
-                            console.log(err)
+                            console.log(err);
                             callback(err);
                         } else {
                             query = "INSERT INTO USER_VIEW VALUES (view_seq.nextval, '" + data.user_id + "' , " + data.post_idx + ")";
@@ -375,13 +375,25 @@ module.exports.post_clicked = function (data, callback) {
                                     if (err) {
                                         callback(err);
                                     } else {
-                                        console.log("user_view update complete")
-                                        db_init.release(connObj, function (err) {
-                                        });
-                                        callback(c2);
+                                        query = "SELECT IDX FROM USER_VIEW";
+                                        statement.executeQuery(query,
+                                          function (err, resultset) {
+                                              if(err) {
+                                                  console.log(err);
+                                                  callback(err)
+                                              }else {
+                                                  console.log("user_view update complete");
+                                                  resultset.toObjArray(function (err, results) {
+                                                      db_init.release(connObj, function (err) {
+                                                          // console.log(results[0].USER_ID);
+                                                          callback(results);
+                                                      });
+                                                  });
+                                              }
+                                          }
+                                        );
                                     }
                                 });
-
                         }
                     });
             }

@@ -21,14 +21,15 @@
         <tr>
             <td><%= i + 1 %></td>
             <!--target="_blank"-->
-            <td><a onclick="pointup('<%= results[i].IDX %>')" target="_blank" href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
+            <td><a onclick="pointup('<%= results[i].IDX %>')" target="_blank"
+                   href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
             <% if ( results[i].TYPE == 1) { %>
             <td>디씨</td>
             <% } %>
             <% if ( results[i].TYPE == 2) { %>
             <td>오유</td>
             <% } %>
-            <td><%= results[i].TOTAL%></td>
+            <td><%= results[i].TOTAL %></td>
         </tr>
         <%
         }
@@ -64,7 +65,9 @@
 <script type="text/javascript">
     function pointup(idx) {
 //        alert(data)
-        $.post('/board/point', {idx: idx});
+        $.post('/board/point', {idx: idx} ,function(data){
+            console.log(data);
+        });
     }
 </script>
 

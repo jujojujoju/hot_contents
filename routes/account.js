@@ -26,7 +26,7 @@ router.post('/signup/checkId', function (req, res) {
             obj = {isPossible: false};
             console.log("ID 사용 불가능함");
         }
-        //JSON을 보내줌
+        // JSON을 보내줌
         res.send(obj);
     });
 })

@@ -61,9 +61,6 @@ router.get('/M10list/:page', function (req, res, next) {
 });
 
 
-
-
-
 router.post('/point', function (req, res, next) {
     var cur = new Date();
     console.log(cur);
@@ -87,7 +84,11 @@ router.post('/point', function (req, res, next) {
         };
     }
     db_.post_clicked(data, function (result) {
-        console.log("total point update complete")
+        console.log("total point update complete");
+        // result
+        // console.log(result);
+        // res.send(result);
+        res.redirect('/',result)
     });
 
 });
