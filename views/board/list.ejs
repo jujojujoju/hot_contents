@@ -22,16 +22,8 @@
         %>
         <tr>
             <td><%= i + 1 %></td>
-<<<<<<< HEAD
-        <% if(isLogin){%>
-            <td><a href="<%= results[i].LINK %>" onclick=""><%= results[i].TITLE %></a></td>
-        <% } else {%>
-            <td><a href="<%= results[i].LINK %>" onclick=""><%= results[i].TITLE %></a></td>
-        <% } %>
-=======
             <!--target="_blank"-->
             <td><a onclick="pointup('<%= results[i].IDX %>')" href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
->>>>>>> 6c2b05d6f56347b4f58152baa2ae37fa7a766ab8
             <% if ( results[i].TYPE == 1) { %>
             <td>디씨</td>
             <% } %>

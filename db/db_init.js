@@ -6,12 +6,12 @@ var asyncjs = require('async');
 if (!jinst.isJvmCreated()) {
     jinst.addOption("-Xrs");
     //convert between version
-    jinst.setupClasspath(['./drivers/ojdbc8.jar']);
+    // jinst.setupClasspath(['./drivers/ojdbc8.jar']);
 
     //*******************tibero version
     //jinst.setupClasspath(['./drivers/tibero6-jdbc.jar']);
 
-    // jinst.setupClasspath(['./drivers/ojdbc7.jar']);
+    jinst.setupClasspath(['./drivers/ojdbc7.jar']);
 }
 
 //var db_config = require('./db_config.json');
