@@ -89,34 +89,15 @@ router.post('/login', isNotLogin, function (req, res, next) {
             req.session.info = {
                 user_id : req.body.user_id,
                 password : req.body.password,
-<<<<<<< HEAD
-=======
                 user_gender : results[0].GENDER,
                 user_birth : results[0].BIRTH
->>>>>>> 6c2b05d6f56347b4f58152baa2ae37fa7a766ab8
             };
             console.log(req.session.info);
             res.redirect('/');
         }
     })
-    ////
-
-    /*
-    if (req.body.user_id == 'a') {
-        req.session.info = {
-            user_id: req.body.user_id, password: req.body.password
-        };
-        res.redirect("/main");
-    }
-    else
-        res.redirect("/?login_error=1");
-    */
 });
 
-
-// router.get('../', isLogin, function (req, res, next) {
-//     console.log('main page');
-// });
 
 
 
@@ -125,13 +106,6 @@ router.get('/logout', function (req, res) {
         res.redirect('/');
     });
 });
-
-//
-// router.post('/',function(req,res){
-//     console.log(req.body.user_id);
-//     res.redirect("/");
-// });
-
 
 
 module.exports = router;
