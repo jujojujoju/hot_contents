@@ -61,7 +61,7 @@ function isNotLogin(req, res, next) {
     if (req.session.info == undefined) {
         next();
     } else {
-        res.redirect("/account/login");
+        res.redirect("/board");
     }
 }
 

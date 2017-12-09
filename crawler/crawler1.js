@@ -21,8 +21,9 @@ module.exports.getcontents = function (callback) {
         var list = [];
         $('tbody.list_tbody tr').each(function () {
             var notice_id = $(this).find("td.t_notice").text();
-            var subject = $(this).find("td.t_subject").text();
+            var subject = $(this).find("td.t_subject > a:nth-child(1)").text();
             var link = $(this).find("td.t_subject a").attr("href");
+            link = link.slice(0, link.indexOf('page') - 1);
             if (link != undefined && notice_id != "공지") {
                 console.log(notice_id);
                 console.log(subject);
@@ -39,38 +40,51 @@ module.exports.getcontents = function (callback) {
     });
 };
 
-// module.exports.getcontents(function(list) {
-//     db_init.reserve(function (connObj) {
-//         var conn = connObj.conn;
-//         var result = null;
-//         conn.createStatement(function (err, statement) {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 var count = 0;
-//                 async.whilst(
-//                     function () { return count < list.length; },
-//                     function (cb) {
-//                         statement.executeUpdate("INSERT INTO BOARD (IDX, TYPE, BOARD_IDX, TITLE, LINK) " +
-//                             "VALUES (board_seq.nextval, 1, '" + list[count].id + "', '"+ list[count].subject + "', '" + list[count].url + "')",
-//                             function (err, c) {
-//                                 if (err) {
-//                                     console.log(err);
-//                                     cb(err)
-//                                 } else {
-//                                     count++;
-//                                     cb();
-//                                 }
-//                             });
-//                     },
-//                     function (err) {
-//                         db_init.release(connObj, function(err) {
-//                             console.log("success!!");
-//                         });
-//                     }
-//                 );
-//             }
-//         });
-//     });
-// });
+module.exports.getcontents(function (list) {
+    db_init.reserve(function (connObj) {
+        var conn = connObj.conn;
+        conn.createStatement(function (err, statement) {
+            if (err) {
+                console.log(err);
+            } else {
+                var query = "DELETE FROM BOARD";
+                statement.executeUpdate(query,
+                    function (err, c1) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var count = 0;
+                            async.whilst(
+                                function () {
+                                    return count < list.length;
+                                },
+                                function (cb) {
+                                    query = "INSERT INTO BOARD VALUES (board_seq.nextval, 1, '"
+                                        + list[count].id + "', '"
+                                        + list[count].subject + "', '"
+                                        + list[count].url + "')";
+                                    statement.executeUpdate(query,
+                                        function (err, c) {
+                                            if (err) {
+                                                console.log(err);
+                                                cb(err)
+                                            } else {
+                                                count++;
+                                                cb();
+                                            }
+                                        });
+                                },
+                                function (err) {
+                                    db_init.release(connObj, function (err) {
+                                        console.log("success!!");
+                                    });
+                                }
+                            );
+                        }
+                    }
+                );
+            }
+        });
+    });
+});
 

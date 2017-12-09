@@ -91,7 +91,6 @@ var server = http.createServer(app, function (err) {
 // db initialize
 db_init.init(function (err) {
     if (err) {
-        console.log("왜이래!");
         console.log(err);
     } else {
         server.listen(port, function(){

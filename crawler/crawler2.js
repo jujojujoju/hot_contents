@@ -20,9 +20,11 @@ module.exports.getcontents = function (callback) {
         var list = [];
         $('table.table_list tbody tr').each(function () {
             var notice_id = $(this).find("td.no").text();
-            var subject = $(this).find("td.subject").text();
+            var subject = $(this).find("td.subject a").text();
+            subject = subject.replace(/'/g,"");
             var link = $(this).find("td.subject a").attr("href");
             if (link != undefined) {
+                link = link.slice(0, link.indexOf('page') - 1);
                 console.log(notice_id);
                 console.log(subject);
                 console.log(url + link);
@@ -37,37 +39,44 @@ module.exports.getcontents = function (callback) {
         callback(list);
     });
 };
-// module.exports.getcontents(function(list) {
-//     db_init.reserve(function (connObj) {
-//         var conn = connObj.conn;
-//         var result = null;
-//         conn.createStatement(function (err, statement) {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 var count = 0;
-//                 async.whilst(
-//                     function () { return count < list.length; },
-//                     function (cb) {
-//                         statement.executeUpdate("INSERT INTO BOARD (IDX, TYPE, BOARD_IDX, TITLE, LINK) " +
-//                             "VALUES (board_seq.nextval, 2, '" + list[count].id + "', '"+ list[count].subject + "', '" + list[count].url + "')",
-//                             function (err, c) {
-//                                 if (err) {
-//                                     console.log(err);
-//                                     cb(err)
-//                                 } else {
-//                                     count++;
-//                                     cb();
-//                                 }
-//                             });
-//                     },
-//                     function (err) {
-//                         db_init.release(connObj, function(err) {
-//                             console.log("success!!");
-//                         });
-//                     }
-//                 );
-//             }
-//         });
-//     });
-// });
+module.exports.getcontents(function (list) {
+    db_init.reserve(function (connObj) {
+        var conn = connObj.conn;
+        var result = null;
+        conn.createStatement(function (err, statement) {
+            if (err) {
+                console.log(err);
+            } else {
+                var count = 0;
+                async.whilst(
+                    function () {
+                        return count < list.length;
+                    },
+                    function (cb) {
+                        var query = "INSERT INTO BOARD VALUES (board_seq.nextval, 2, '"
+                            + list[count].id + "', '"
+                            + list[count].subject + "', '"
+                            + list[count].url + "')";
+                        console.log(query);
+
+                        statement.executeUpdate(query,
+                            function (err, c) {
+                                if (err) {
+                                    console.log(err);
+                                    cb(err)
+                                } else {
+                                    count++;
+                                    cb();
+                                }
+                            });
+                    },
+                    function (err) {
+                        db_init.release(connObj, function (err) {
+                            console.log("success!!");
+                        });
+                    }
+                );
+            }
+        });
+    });
+});

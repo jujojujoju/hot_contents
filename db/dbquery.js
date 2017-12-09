@@ -1,31 +1,4 @@
 var db_init = require('./db_init');
-var asyncjs = require('async');
-
-// module.exports.getBoardList = function(page, callback) {
-//     db_init.reserve(function (connObj) {
-//         var conn = connObj.conn;
-//         conn.createStatement(function (err, statement) {
-//             if (err) {
-//                 db_init.release(connObj, function(){});
-//                 callback(false);
-//             } else {
-//                 statement.executeQuery("SELECT * FROM BOARD",
-//                     function (err, resultset) {
-//                         if (err) {
-//                             db_init.release(connObj, function(){});
-//                             callback(false);
-//                         } else {
-//                             resultset.toObjArray(function (err, results) {
-//                                 db_init.release(connObj, function (err) {
-//                                     callback(results);
-//                                 });
-//                             });
-//                         }
-//                     });
-//             }
-//         });
-//     });
-// };
 
 // Pagination
 module.exports.getBoardList = function (page, callback) {
@@ -73,9 +46,6 @@ module.exports.getBoardList = function (page, callback) {
                                 callback(false);
                             } else {
                                 console.log('Get list query : ', query);
-                                console.log("휴 다행..");
-                                // console.log("rows", rows);
-
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
                                         var data = {
@@ -87,7 +57,6 @@ module.exports.getBoardList = function (page, callback) {
                                             endPage : endPage,
                                             totalPage : totalPage,
                                         }
-                                        console.log('성공데스네');
                                         callback(data);
                                     });
 
@@ -95,8 +64,6 @@ module.exports.getBoardList = function (page, callback) {
                             }
                         });
                     });
-                    // return;
-
 
                 });
 
