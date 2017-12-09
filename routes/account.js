@@ -78,8 +78,8 @@ router.post('/login', isNotLogin, function (req, res, next) {
     var info = {user_id : req.body.user_id, password : req.body.password};
     console.log('!@#1', info);
     db_.login(info, function(results){
-        if(results === false){
-            console.log("query error");
+        if(results === undefined){
+            console.log("result is undefined");
         }
         if(results.length === 0){
             console.log("id,password mismatch!!!!!!");

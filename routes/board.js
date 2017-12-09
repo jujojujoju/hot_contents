@@ -67,11 +67,11 @@ router.get('/M10list/:page', function (req, res, next) {
 router.post('/point', function (req, res, next) {
     var cur = new Date();
     console.log(cur);
-    var data
+    var data;
     if (req.session.info == undefined) {
         data = {
             user_type : "UNKNOWN",
-            post_idx : req.body.point,
+            post_idx : req.body.idx,
             user_id : cur.toString().replace(/\s/g, '')
         };
     }
@@ -80,7 +80,7 @@ router.post('/point', function (req, res, next) {
     {
         data = {
             user_type : "KNOWN",
-            post_idx : req.body.point,
+            post_idx : req.body.idx,
             user_id : req.session.info.user_id,
             gender :req.session.info.gender,
             birth : req.session.info.birth

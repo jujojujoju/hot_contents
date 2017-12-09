@@ -312,10 +312,10 @@ module.exports.login = function (info, callback) {
                 });
                 callback(false);
             } else {
-                var s = "SELECT * FROM USERS WHERE USER_ID='" + info.user_id + "'"
+                var query = "SELECT * FROM USERS WHERE USER_ID='" + info.user_id + "'"
                     + "AND PASSWORD='" + info.password + "'";
-                console.log(s);
-                statement.executeQuery(s,
+                console.log(query);
+                statement.executeQuery(query,
                     function (err, resultset) {
                         if (err) {
                             console.log(err);

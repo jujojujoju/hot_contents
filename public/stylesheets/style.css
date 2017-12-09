@@ -24,35 +24,3 @@ form {
 #birth-select {
     width: 400px;
 }
-
-
-
-.sidebar {
-    border-radius: 20px;
-    position: fixed;
-    width: 200px;
-    height: 55%;
-    margin-top: 100px;
-    margin-left: 30px;
-    background: #e0e0e0;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.sidebar-brand {
-    color: white;
-    font-size: 100%;
-}
-
-.sidebar-nav {
-    width: 220px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-    border-bottom: 1px solid white;
-    text-indent: 1.0em;
-    line-height: 2.8em;
-}
