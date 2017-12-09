@@ -43,7 +43,7 @@ module.exports.getBoardList = function (page, callback) {
                 statement.executeQuery(sql, function(err, resultset){
 
                     var size = 10;  // 한 페이지에 보여줄 개수
-                    var begin = (page - 1) * size; // 시작 글
+                    var begin = (page - 1) * size + 1; // 시작 글
                     var end = page * size;
 
                     resultset.toObjArray(function (err, results) {
