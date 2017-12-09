@@ -45,8 +45,6 @@ router.post('/signup/finish', function (req, res) {
     // res.redirect('/');
 });
 
-
-
 // ===================로그인=====================
 
 function isLogin(req, res, next) {

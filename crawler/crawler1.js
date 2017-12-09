@@ -22,6 +22,7 @@ module.exports.getcontents = function (callback) {
         $('tbody.list_tbody tr').each(function () {
             var notice_id = $(this).find("td.t_notice").text();
             var subject = $(this).find("td.t_subject > a:nth-child(1)").text();
+            subject = subject.replace(/'/g,"");
             var link = $(this).find("td.t_subject a").attr("href");
             link = link.slice(0, link.indexOf('page') - 1);
             if (link != undefined && notice_id != "공지") {
@@ -62,7 +63,7 @@ module.exports.getcontents(function (list) {
                                     query = "INSERT INTO BOARD VALUES (board_seq.nextval, 1, '"
                                         + list[count].id + "', '"
                                         + list[count].subject + "', '"
-                                        + list[count].url + "')";
+                                        + list[count].url + "', sysdate)";
                                     statement.executeUpdate(query,
                                         function (err, c) {
                                             if (err) {

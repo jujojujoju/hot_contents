@@ -21,7 +21,7 @@ module.exports.getcontents = function (callback) {
         $('table.table_list tbody tr').each(function () {
             var notice_id = $(this).find("td.no").text();
             var subject = $(this).find("td.subject a").text();
-            subject = subject.replace(/'/g,"");
+            subject = subject.replace(/'/g, "");
             var link = $(this).find("td.subject a").attr("href");
             if (link != undefined) {
                 link = link.slice(0, link.indexOf('page') - 1);
@@ -56,7 +56,7 @@ module.exports.getcontents(function (list) {
                         var query = "INSERT INTO BOARD VALUES (board_seq.nextval, 2, '"
                             + list[count].id + "', '"
                             + list[count].subject + "', '"
-                            + list[count].url + "')";
+                            + list[count].url + "', sysdate)";
                         console.log(query);
 
                         statement.executeUpdate(query,
