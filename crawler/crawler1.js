@@ -60,7 +60,8 @@ module.exports.getcontents(function (list) {
                                     return count < list.length;
                                 },
                                 function (cb) {
-                                    query = "INSERT INTO BOARD VALUES (board_seq.nextval, 1, '"
+                                    query = "INSERT INTO BOARD (IDX, TYPE, BOARD_IDX, TITLE, LINK, TIME)" +
+                                        "VALUES (board_seq.nextval, 1, '"
                                         + list[count].id + "', '"
                                         + list[count].subject + "', '"
                                         + list[count].url + "', sysdate)";
