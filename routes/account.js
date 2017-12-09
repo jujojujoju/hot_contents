@@ -88,7 +88,9 @@ router.post('/login', isNotLogin, function (req, res, next) {
         else{
             req.session.info = {
                 user_id : req.body.user_id,
-                password : req.body.password
+                password : req.body.password,
+                user_gender : results[0].GENDER,
+                user_birth : results[0].BIRTH
             };
             console.log(req.session.info);
             res.redirect('/');
