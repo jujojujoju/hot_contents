@@ -111,14 +111,11 @@ module.exports.getBoardList = function (page, callback) {
                         }
 
                         var query = "SELECT *\n" +
-<<<<<<< HEAD
-                        "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE FROM BOARD a\n" +
+                        "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a\n" +
                             "ORDER BY a.IDX DESC) b\n" +
                             "WHERE b.rnum BETWEEN " + begin + " AND " + end;
-=======
                             "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a) b\n" +
                             "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
->>>>>>> 6c2b05d6f56347b4f58152baa2ae37fa7a766ab8
 
                         statement.executeQuery(query, function (err, resultset) {
                             if (err) {
@@ -132,7 +129,6 @@ module.exports.getBoardList = function (page, callback) {
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
                                         var data = {
-<<<<<<< HEAD
                                             title : "게시판",
                                             results : results,
                                             page : page,
@@ -207,15 +203,6 @@ module.exports.getBoardList_M10 = function (page, callback) {
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
                                         var data = {
-                                            title : "게시판",
-                                            results : results,
-                                            page : page,
-                                            pageSize : pageSize,
-                                            startPage : startPage,
-                                            endPage : endPage,
-                                            totalPage : totalPage
-                                        }
-=======
                                             title: "게시판",
                                             results: results,
                                             page: page,
@@ -223,8 +210,7 @@ module.exports.getBoardList_M10 = function (page, callback) {
                                             startPage: startPage,
                                             endPage: endPage,
                                             totalPage: totalPage
-                                        };
->>>>>>> 6c2b05d6f56347b4f58152baa2ae37fa7a766ab8
+                                        }
                                         callback(data);
                                     });
 
@@ -240,12 +226,9 @@ module.exports.getBoardList_M10 = function (page, callback) {
     });
 };
 
-<<<<<<< HEAD
 
-module.exports.chkId = function(ID, callback) {
-=======
+
 module.exports.chkId = function (ID, callback) {
->>>>>>> 6c2b05d6f56347b4f58152baa2ae37fa7a766ab8
     db_init.reserve(function (connObj) {
         var conn = connObj.conn;
         conn.createStatement(function (err, statement) {
