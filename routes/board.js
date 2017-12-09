@@ -15,21 +15,9 @@ router.get('/list/:page', function (req, res, next) {
     var page = req.params.page;
     page = parseInt(page, 10);
     db_.getBoardList(page, function(data) {
-        if(req.session.info == undefined){
-            data['isLogin'] = false;
-        }
-        else{
-            data['isLogin'] = true;
-        }
-        // res.render('board/list', {title: '게시판', rows: results});
+        data['isLogin'] = req.session.info != undefined;
         if (data) {
-            // if (data.results.length > 0) {
-            //     for (var i = 0; i < data.results.length; i++) {
-            //         console.log("ID: " + data.results[i].BOARD_IDX + ", TITLE: " + data.results[i].TITLE + ", LINK : " + data.results[i].LINK);
-            //     }
-            // }
             console.log("get list ok");
-            // console.log("!@#data", data);
             res.render('board/list', data);
 
         } else {
