@@ -285,7 +285,7 @@ module.exports.signup = function (input, callback) {
                 callback(false);
             } else {
                 var s = "INSERT INTO USERS VALUES('" + input.ID + "','"
-                    + input.PASSWORD + "'," + input.GENDER + ",'" + input.BIRTH + "')";
+                    + input.PASSWORD + "','" + input.BIRTH + "','" + input.GENDER + "')";
                 console.log(s);
                 statement.executeUpdate(s,
                     function (err, count) {
@@ -328,6 +328,8 @@ module.exports.login = function (info, callback) {
                             resultset.toObjArray(function (err, results) {
                                 db_init.release(connObj, function (err) {
                                     // console.log(results[0].USER_ID);
+                                    console.log("유저의 성별!!!!!!!!!!!!!!!1");
+                                    //console.log(results[0].GENDER);
                                     callback(results);
                                 });
                             });
@@ -352,14 +354,99 @@ module.exports.post_clicked = function (data, callback) {
                 // var user
                 if(data.user_type == "UNKNOWN")
                 {
-                    query = "UPDATE BOARD" +
+                    query = "UPDATE BOARD " +
                         "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                         "UNKNOWN = NVL(UNKNOWN, 0) + 1 " +
                         "WHERE IDX=" + data.post_idx;
                 }else
                 {
                     //남자 여자 구분해서 넣어주고
-                    //
+                    //만약 남자면
+                    if(data.gender === 'M'){
+                        //10대
+                        if(data.age<20){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "MALE = NVL(MALE, 0) + 1 , " +
+                                "M10 = NVL(M10, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //20대
+                        else if(data.age >=20 &&data.age <30){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "MALE = NVL(MALE, 0) + 1 , " +
+                                "M20 = NVL(M20, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //30대
+                        else if(data.age >=30 &&data.age <40){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "MALE = NVL(MALE, 0) + 1 , " +
+                                "M30 = NVL(M30, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //40대
+                        else if(data.age >=40 &&data.age <50){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "MALE = NVL(MALE, 0) + 1 , " +
+                                "M40 = NVL(M40, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //그외 -> 50대
+                        else{
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "MALE = NVL(MALE, 0) + 1 , " +
+                                "M50 = NVL(M50, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                    }
+                    //만약 여자면
+                    else{
+                        //10대
+                        if(data.age <20){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "FEMALE = NVL(FEMALE, 0) + 1 , " +
+                                "F10 = NVL(F10, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //20대
+                        else if(data.age >=20 &&data.age <30){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "FEMALE = NVL(FEMALE, 0) + 1 , " +
+                                "F20 = NVL(F20, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //30대
+                        else if(data.age >=30 &&data.age <40){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "FEMALE = NVL(FEMALE, 0) + 1 , " +
+                                "F30 = NVL(F30, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //40대
+                        else if(data.age >=40 &&data.age <50){
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "FEMALE = NVL(FEMALE, 0) + 1 , " +
+                                "F40 = NVL(F40, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                        //그외 -> 50대
+                        else{
+                            query = "UPDATE BOARD " +
+                                "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
+                                "FEMALE = NVL(FEMALE, 0) + 1 , " +
+                                "F50 = NVL(F50, 0) + 1 " +
+                                "WHERE IDX=" + data.post_idx;
+                        }
+                    }
                 }
                 console.log(query);
                 statement.executeUpdate(query,

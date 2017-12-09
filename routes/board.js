@@ -82,8 +82,8 @@ router.post('/point', function (req, res, next) {
             user_type : "KNOWN",
             post_idx : req.body.point,
             user_id : req.session.info.user_id,
-            gender :req.session.info.gender,
-            birth : req.session.info.birth
+            gender :req.session.info.GENDER,
+            age : req.session.info.user_age
         };
     }
     db_.post_clicked(data, function (result) {

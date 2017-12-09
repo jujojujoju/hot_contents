@@ -86,12 +86,17 @@ router.post('/login', isNotLogin, function (req, res, next) {
             res.redirect("/account/login?login_error=1");
         }
         else{
+            var date = new Date();
+            var year = date.getFullYear();
+            console.log("유저의 성별");
+            console.log(results[0].GENDER);
             req.session.info = {
                 user_id : req.body.user_id,
                 password : req.body.password,
-                user_gender : results[0].GENDER,
-                user_birth : results[0].BIRTH
+                gender : results[0].GENDER,
+                user_age : year-results[0].BIRTH.substr(0,4)+1
             };
+            console.log("로그인한 사용자의 세션 정보");
             console.log(req.session.info);
             res.redirect('/');
         }
