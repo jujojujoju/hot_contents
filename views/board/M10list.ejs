@@ -22,11 +22,11 @@
         %>
         <tr>
             <td><%= i + 1 %></td>
-        <% if(isLogin){%>
+            <% if(isLogin){%>
             <td><a href="<%= results[i].LINK %>" onclick=""><%= results[i].TITLE %></a></td>
-        <% } else {%>
+            <% } else {%>
             <td><a href="<%= results[i].LINK %>" onclick=""><%= results[i].TITLE %></a></td>
-        <% } %>
+            <% } %>
             <% if ( results[i].TYPE == 1) { %>
             <td>디씨</td>
             <%}%>
@@ -41,8 +41,8 @@
     </table>
     <div>
         <% if(page > pageSize) { %>
-        [ <a href="/board/list/1" style="text-decoration: none;">◀◀</a> ]
-        [ <a href="/board/list/<%=startPage-1%>" style="text-decoration: none;">◀</a> ]
+        [ <a href="/board/M10list/1" style="text-decoration: none;">◀◀</a> ]
+        [ <a href="/board/M10list/<%=startPage-1%>" style="text-decoration: none;">◀</a> ]
         <% } else {%>
         [ <span style="color:gray">◀◀</span> ]
         [ <span style="color:gray">◀</span> ]
@@ -52,13 +52,13 @@
         <% if (i== page) {%>
         [ <%=i%> ]
         <% } else { %>
-        [ <a href="/board/list/<%=i%>" style="text-decoration: none;"><%=i%></a> ]
+        [ <a href="/board/M10list/<%=i%>" style="text-decoration: none;"><%=i%></a> ]
         <% } %>
         <% } %>
         &nbsp;&nbsp;
         <% if (endPage < totalPage) { %>
-        [ <a href="/board/list/<%=endPage+1%>" style="text-decoration: none;">▶</a> ]
-        [ <a href="/board/list/<%=totalPage%>" style="text-decoration: none;">▶▶</a> ]
+        [ <a href="/board/M10list/<%=endPage+1%>" style="text-decoration: none;">▶</a> ]
+        [ <a href="/board/M10list/<%=totalPage%>" style="text-decoration: none;">▶▶</a> ]
         <% } else {%>
         [ <span style="color:gray">▶</span> ]
         [ <span style="color:gray">▶▶</span> ]
