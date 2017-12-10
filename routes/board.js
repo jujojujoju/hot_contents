@@ -26,9 +26,9 @@ router.get('/list/:page', function (req, res, next) {
     });
 });
 
-router.post('/list/search/:page', function (req, res, next) {
+router.get('/list/search/:page', function (req, res, next) {
 
-    var keyword = req.body.keyword;
+    var keyword = req.param('keyword');
     var page = req.params.page;
     page = parseInt(page, 10);
     db_.searchBoardlist(page, keyword, function (data) {

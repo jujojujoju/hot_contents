@@ -35,28 +35,36 @@
     .sidebar {
         /*border-radius: 20px;*/
         position: fixed;
-        width: 15%;
-        height: 55%;
-        margin-left: 70%;
+        width: 20%;
+        height: 65%;
+        margin-left: 65%;
         /*background: ;*/
         overflow-x: hidden;
         overflow-y: auto;
     }
-
+    .sidebar p {
+        padding: 6px 6px 6px 32px;
+        color: #d43f3a;
+        font-size: 130%;
+    }
     .sidebar a {
         padding: 6px 6px 6px 32px;
         text-decoration: none;
-        font-size: 25px;
-        color: #818181;
+        /*font-size: 25px;*/
+        font-size: 110%;
+        color: mediumpurple;
         display: block;
     }
+    .sidebar br {
+        border-bottom:1px
+     }
     .sidebar a:hover {
         color: #f1f1f1;
     }
 
-    .sidebar-nav li a:hover {
-        background: #ccccff;
-    }
+    /*.sidebar-nav li a:hover {*/
+        /*background: #ccccff;*/
+    /*}*/
 </style>
 <body>
 <br>
@@ -109,9 +117,9 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search" method="post" action="/board/list/search/1">
+                <form class="navbar-form navbar-left" role="search" method="get" action="/board/list/search/1">
                     <div class="form-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                        <input type="text" id="keyword" name="keyword" class="form-control" placeholder="검색어">
                     </div>
                     <button type="submit" class="btn btn-default">검색</button>
                 </form>
@@ -129,11 +137,12 @@
 
     <div>
         <div class="sidebar">
-            <a id='s1'></a>
-            <a id='s2'></a>
-            <a id='s3'></a>
-            <a id='s4'></a>
-            <a id='s4'></a>
+            <p>함께 읽은 글</p>
+            <a id='s1'></a><br>
+            <a id='s2'></a><br>
+            <a id='s3'></a><br>
+            <a id='s4'></a><br>
+            <a id='s4'></a><br>
         </div>
-        <br><br><br><br>
+        <!--<br><br><br><br>-->
     </div>
