@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/jujojujoju/hot_contents#readme",
   "dependencies": {
+    "big-decimal": "^1.0.2",
+    "bigdecimal": "^0.6.1",
     "body-parser": "~1.17.1",
     "cheerio": "^1.0.0-rc.2",
     "connect-flash": "^0.1.1",

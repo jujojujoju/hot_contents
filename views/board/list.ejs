@@ -4,7 +4,7 @@
 
 <br>
 <br>
-
+<!--<span id="num">1</span>-->
 <div class="col-sm-10">
     <table class="table table-bordered table-hover">
         <tr>
@@ -22,7 +22,7 @@
             <td><%= i + 1 %></td>
             <!--target="_blank"-->
             <td><a onclick="pointup('<%= results[i].IDX %>')" target="_blank"
-                   href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
+                  href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
             <% if ( results[i].TYPE == 1) { %>
             <td>디씨</td>
             <% } %>
@@ -64,9 +64,17 @@
 
 <script type="text/javascript">
     function pointup(idx) {
-//        alert(data)
-        $.post('/board/point', {idx: idx} ,function(data){
-            console.log(data);
+        $.ajax({
+            url: '/board/point',
+            type: 'POST',
+            data: {idx : idx},
+            success: function (result) {
+                for (var i = 0;i < result.length; i++){
+                    $("#s" + i + "").html(result[i].TITLE);
+                    $("#s" + i + "").attr("target", "_blank");
+                    $("#s" + i + "").attr("href", result[i].LINK);
+                }
+            }
         });
     }
 </script>

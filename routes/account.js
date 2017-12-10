@@ -15,6 +15,7 @@ router.post('/signup/checkId', function (req, res) {
     console.log("포스트후 들어옴");
     var inputId = req.body.inputId;
     console.log('inputId : ', req.body.inputId);
+
     db_.chkId(inputId, function (results) {
         console.log("체크아이디 들어옴", results);
         var obj = {isPossible: null};
@@ -29,6 +30,7 @@ router.post('/signup/checkId', function (req, res) {
         // JSON을 보내줌
         res.send(obj);
     });
+
 })
 
 router.post('/signup/finish', function (req, res) {

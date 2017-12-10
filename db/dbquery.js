@@ -1,5 +1,5 @@
 var db_init = require('./db_init');
-
+var big = require('big-decimal')
 module.exports.searchBoardlist = function (page, keyword, callback) {
     db_init.reserve(function (connObj) {
         var conn = connObj.conn;
@@ -11,11 +11,11 @@ module.exports.searchBoardlist = function (page, keyword, callback) {
                 callback(false);
 
             } else {
-                var sql = "select count(*) cnt from BOARD where TITLE LIKE '%" +keyword+"%'";
+                var sql = "select count(*) cnt from BOARD where TITLE LIKE '%" + keyword + "%'";
                 console.log(sql);
                 console.log(keyword);
                 console.log("@@query before execute");
-                statement.executeQuery(sql, function(err, resultset){
+                statement.executeQuery(sql, function (err, resultset) {
 
                     var size = 10;  // 한 페이지에 보여줄 개수
                     var begin = (page - 1) * size + 1; // 시작 글
@@ -28,16 +28,16 @@ module.exports.searchBoardlist = function (page, keyword, callback) {
                         var pageSize = 10; // 페이지 링크의 개수, 10개씩 보여주고 10개씩 넘어감
 
                         // 1~10페이지는 1로, 11~20페이지는 11로 --> 숫자 첫째자리수를 1로 고정
-                        var startPage = Math.floor((page-1) / pageSize) * pageSize + 1;
+                        var startPage = Math.floor((page - 1) / pageSize) * pageSize + 1;
                         var endPage = startPage + (pageSize - 1);
 
-                        if(endPage > totalPage) {
+                        if (endPage > totalPage) {
                             endPage = totalPage;
                         }
 
                         var query = "SELECT *\n" +
                             "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TIME, a.TOTAL, a.M10 FROM BOARD a \n" +
-                            "WHERE TITLE LIKE '%"+keyword+"%'\n" +
+                            "WHERE TITLE LIKE '%" + keyword + "%'\n" +
                             "ORDER BY a.IDX DESC) b\n" +
                             "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
                         console.log(query);
@@ -53,13 +53,13 @@ module.exports.searchBoardlist = function (page, keyword, callback) {
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
                                         var data = {
-                                            title : "게시판",
-                                            results : results,
-                                            page : page,
-                                            pageSize : pageSize,
-                                            startPage : startPage,
-                                            endPage : endPage,
-                                            totalPage : totalPage
+                                            title: "게시판",
+                                            results: results,
+                                            page: page,
+                                            pageSize: pageSize,
+                                            startPage: startPage,
+                                            endPage: endPage,
+                                            totalPage: totalPage
                                         }
                                         callback(data);
                                     });
@@ -111,11 +111,11 @@ module.exports.getBoardList = function (page, callback) {
                         }
 
                         var query = "SELECT *\n" +
-                        "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a\n" +
+                            "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a\n" +
                             "ORDER BY a.IDX DESC) b\n" +
-                            "WHERE b.rnum BETWEEN " + begin + " AND " + end;
-                            "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a) b\n" +
-                            "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
+                            "WHERE b.rnum BETWEEN " + begin + " AND " + end +
+                        "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a) b\n" +
+                        "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
 
                         statement.executeQuery(query, function (err, resultset) {
                             if (err) {
@@ -129,13 +129,13 @@ module.exports.getBoardList = function (page, callback) {
                                 resultset.toObjArray(function (err, results) {
                                     db_init.release(connObj, function (err) {
                                         var data = {
-                                            title : "게시판",
-                                            results : results,
-                                            page : page,
-                                            pageSize : pageSize,
-                                            startPage : startPage,
-                                            endPage : endPage,
-                                            totalPage : totalPage
+                                            title: "게시판",
+                                            results: results,
+                                            page: page,
+                                            pageSize: pageSize,
+                                            startPage: startPage,
+                                            endPage: endPage,
+                                            totalPage: totalPage
                                         }
                                         callback(data);
                                     });
@@ -166,14 +166,14 @@ module.exports.getBoardList_M10 = function (page, callback) {
 
                 var sql = "select count(*) CNT\n" +
                     "FROM(SELECT *\n" +
-                    "FROM BOARD\n"+
+                    "FROM BOARD\n" +
                     "WHERE TIME BETWEEN SYSDATE-1 AND SYSDATE)\n" +
-                    "WHERE ROWNUM BETWEEN 1 AND 10\n"+
+                    "WHERE ROWNUM BETWEEN 1 AND 10\n" +
                     "ORDER BY M10";
 
                 console.log("@@query before execute");
-                statement.executeQuery(sql, function(err, resultset){
-                    if(err){
+                statement.executeQuery(sql, function (err, resultset) {
+                    if (err) {
                         console.log("첫 쿼리 실행후 에러");
                     }
                     var size = 10;  // 한 페이지에 보여줄 개수
@@ -187,16 +187,16 @@ module.exports.getBoardList_M10 = function (page, callback) {
                         var pageSize = 10; // 페이지 링크의 개수, 10개씩 보여주고 10개씩 넘어감
 
                         // 1~10페이지는 1로, 11~20페이지는 11로 --> 숫자 첫째자리수를 1로 고정
-                        var startPage = Math.floor((page-1) / pageSize) * pageSize + 1;
+                        var startPage = Math.floor((page - 1) / pageSize) * pageSize + 1;
                         var endPage = startPage + (pageSize - 1);
 
-                        if(endPage > totalPage) {
+                        if (endPage > totalPage) {
                             endPage = totalPage;
                         }
 
                         var query = "SELECT *" +
                             "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TIME, a.TOTAL, a.M10 FROM BOARD a\n" +
-                            "WHERE a.TIME BETWEEN sysdate-1 AND sysdate\n" +
+                            "WHERE a.TIME BETWEEN sysdate-3 AND sysdate\n" +
                             "ORDER BY M10 DESC, TOTAL DESC) b\n" +
                             "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
 
@@ -234,7 +234,6 @@ module.exports.getBoardList_M10 = function (page, callback) {
         });
     });
 };
-
 
 
 module.exports.chkId = function (ID, callback) {
@@ -352,19 +351,17 @@ module.exports.post_clicked = function (data, callback) {
             } else {
                 var query = "";
                 // var user
-                if(data.user_type == "UNKNOWN")
-                {
+                if (data.user_type == "UNKNOWN") {
                     query = "UPDATE BOARD " +
                         "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                         "UNKNOWN = NVL(UNKNOWN, 0) + 1 " +
                         "WHERE IDX=" + data.post_idx;
-                }else
-                {
+                } else {
                     //남자 여자 구분해서 넣어주고
                     //만약 남자면
-                    if(data.gender === 'M'){
+                    if (data.gender === 'M') {
                         //10대
-                        if(data.age<20){
+                        if (data.age < 20) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "MALE = NVL(MALE, 0) + 1 , " +
@@ -372,7 +369,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //20대
-                        else if(data.age >=20 &&data.age <30){
+                        else if (data.age >= 20 && data.age < 30) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "MALE = NVL(MALE, 0) + 1 , " +
@@ -380,7 +377,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //30대
-                        else if(data.age >=30 &&data.age <40){
+                        else if (data.age >= 30 && data.age < 40) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "MALE = NVL(MALE, 0) + 1 , " +
@@ -388,7 +385,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //40대
-                        else if(data.age >=40 &&data.age <50){
+                        else if (data.age >= 40 && data.age < 50) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "MALE = NVL(MALE, 0) + 1 , " +
@@ -396,7 +393,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //그외 -> 50대
-                        else{
+                        else {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "MALE = NVL(MALE, 0) + 1 , " +
@@ -405,9 +402,9 @@ module.exports.post_clicked = function (data, callback) {
                         }
                     }
                     //만약 여자면
-                    else{
+                    else {
                         //10대
-                        if(data.age <20){
+                        if (data.age < 20) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "FEMALE = NVL(FEMALE, 0) + 1 , " +
@@ -415,7 +412,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //20대
-                        else if(data.age >=20 &&data.age <30){
+                        else if (data.age >= 20 && data.age < 30) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "FEMALE = NVL(FEMALE, 0) + 1 , " +
@@ -423,7 +420,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //30대
-                        else if(data.age >=30 &&data.age <40){
+                        else if (data.age >= 30 && data.age < 40) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "FEMALE = NVL(FEMALE, 0) + 1 , " +
@@ -431,7 +428,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //40대
-                        else if(data.age >=40 &&data.age <50){
+                        else if (data.age >= 40 && data.age < 50) {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "FEMALE = NVL(FEMALE, 0) + 1 , " +
@@ -439,7 +436,7 @@ module.exports.post_clicked = function (data, callback) {
                                 "WHERE IDX=" + data.post_idx;
                         }
                         //그외 -> 50대
-                        else{
+                        else {
                             query = "UPDATE BOARD " +
                                 "SET TOTAL = NVL(TOTAL, 0) + 1 , " +
                                 "FEMALE = NVL(FEMALE, 0) + 1 , " +
@@ -462,22 +459,31 @@ module.exports.post_clicked = function (data, callback) {
                                     if (err) {
                                         callback(err);
                                     } else {
-                                        query = "SELECT IDX FROM USER_VIEW";
+                                        query = "SELECT * FROM (SELECT bb.IDX, bb.TITLE, bb.LINK, bb.TOTAL " +
+                                            "FROM BOARD bb WHERE IDX IN " +
+                                            "(SELECT t1.cbi " +
+                                            "FROM (SELECT c.bi cbi, count(*) counts " +
+                                            "FROM (SELECT a.IDX ai, a.USER_ID au, b.IDX bi " +
+                                            "FROM USER_VIEW a JOIN USER_VIEW b " +
+                                            "ON a.USER_ID = b.USER_ID " +
+                                            "WHERE a.IDX = " + data.post_idx + " AND b.IDX != " + data.post_idx + " ) c " +
+                                            "GROUP BY c.bi ORDER BY counts DESC) t1)) " +
+                                            "WHERE ROWNUM BETWEEN 1 AND 5";
+                                        console.log(query)
                                         statement.executeQuery(query,
-                                          function (err, resultset) {
-                                              if(err) {
-                                                  console.log(err);
-                                                  callback(err)
-                                              }else {
-                                                  console.log("user_view update complete");
-                                                  resultset.toObjArray(function (err, results) {
-                                                      db_init.release(connObj, function (err) {
-                                                          // console.log(results[0].USER_ID);
-                                                          callback(results);
-                                                      });
-                                                  });
-                                              }
-                                          }
+                                            function (err, resultset) {
+                                                if (err) {
+                                                    console.log(err);
+                                                    callback(err)
+                                                } else {
+                                                    console.log("user_view update complete");
+                                                    resultset.toObjArray(function (err, results) {
+                                                        db_init.release(connObj, function (err) {
+                                                            callback(results);
+                                                        });
+                                                    });
+                                                }
+                                            }
                                         );
                                     }
                                 });
