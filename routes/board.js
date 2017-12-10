@@ -3,7 +3,6 @@ var router = express.Router();
 var db_init = require('../db/db_init');
 var asyncjs = require('async');
 var db_ = require("../db/dbquery");
-var big = require('big-decimal');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     // 그냥 board/ 로 접속할 경우 전체 목록 표시로 리다이렉팅

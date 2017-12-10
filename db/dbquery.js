@@ -113,9 +113,7 @@ module.exports.getBoardList = function (page, callback) {
                         var query = "SELECT *\n" +
                             "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a\n" +
                             "ORDER BY a.IDX DESC) b\n" +
-                            "WHERE b.rnum BETWEEN " + begin + " AND " + end +
-                        "FROM (SELECT rownum AS rnum, a.IDX, a.BOARD_IDX, a.TYPE, a.LINK, a.TITLE, a.TOTAL FROM BOARD a) b\n" +
-                        "WHERE b.rnum BETWEEN '" + begin + "' AND '" + end + "'";
+                            "WHERE b.rnum BETWEEN " + begin + " AND " + end;
 
                         statement.executeQuery(query, function (err, resultset) {
                             if (err) {
