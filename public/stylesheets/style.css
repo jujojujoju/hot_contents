@@ -1,26 +1,29 @@
-
-form {
-    padding: 10px;
+.sidebar {
+    /*border-radius: 20px;*/
     position: fixed;
-    bottom: 0;
-    width: 50%;
-    margin: 30px 15%
+    width: 20%;
+    height: 65%;
+    margin-left: 65%;
+    /*background: ;*/
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-
-#messages {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.sidebar p {
+    padding: 6px 6px 6px 32px;
+    color: #ec971f;
+    font-size: 130%;
 }
-
-#messages li {
-    padding: 5px 10px;
+.sidebar a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    /*font-size: 25px;*/
+    font-size: 110%;
+    color: mediumpurple;
+    display: block;
 }
-
-#messages li:nth-child(odd) {
-    background: #eee;
+.sidebar br {
+    border-bottom:1px
 }
-
-#birth-select {
-    width: 400px;
+.sidebar a:hover {
+    color: #f1f1f1;
 }
