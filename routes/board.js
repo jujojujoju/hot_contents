@@ -42,7 +42,7 @@ router.get('/list/search/:page', function (req, res, next) {
     });
 });
 
-//
+
 // 10대남 HOT-게시판
 router.get('/M10list/:page', function (req, res, next) {
     var page = req.params.page;
@@ -50,7 +50,7 @@ router.get('/M10list/:page', function (req, res, next) {
     db_.getBoardList_M10(page, function (data) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
-            console.log("10대 list ok");
+            console.log("10대 list success");
             res.render('board/M10list', data);
 
         } else {
@@ -59,6 +59,149 @@ router.get('/M10list/:page', function (req, res, next) {
     });
 });
 
+// 20대남 HOT-게시판
+router.get('/M20list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_M20(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("20대 list success");
+            res.render('board/M20list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 30대남 HOT-게시판
+router.get('/M30list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_M30(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("30대 list success");
+            res.render('board/M30list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 40대남 HOT-게시판
+router.get('/M40list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_M40(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("40대 list success");
+            res.render('board/M40list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 50대남 HOT-게시판
+router.get('/M50list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_M50(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("50대 list success");
+            res.render('board/M50list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 10대여 HOT-게시판
+router.get('/F10list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_F10(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("10대여자 list success");
+            res.render('board/F10list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 20대여 HOT-게시판
+router.get('/F20list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_F20(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("20대여자 list success");
+            res.render('board/F20list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 30대여 HOT-게시판
+router.get('/F30list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_F30(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("30대여자 list success");
+            res.render('board/F30list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 40대여 HOT-게시판
+router.get('/F40list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_F40(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("40대여자 list success");
+            res.render('board/F40list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
+
+// 50대여 HOT-게시판
+router.get('/F50list/:page', function (req, res, next) {
+    var page = req.params.page;
+    page = parseInt(page, 10);
+    db_.getBoardList_F50(page, function (data) {
+        data['isLogin'] = req.session.info != undefined;
+        if (data) {
+            console.log("50대여자 list success");
+            res.render('board/F50list', data);
+
+        } else {
+            console.log('result error');
+        }
+    });
+});
 
 router.post('/point', function (req, res) {
     var cur = new Date();
