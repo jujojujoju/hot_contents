@@ -2,74 +2,76 @@
 
 <h3 style="font-family: 'Nanum Pen Script OTF'"><span><%= title %></span></h3>
 <hr>
-<!--<span id="num">1</span>-->
+
 <div class="col-sm-12">
     <table class="table table-bordered table-hover">
         <tr>
             <th>번호</th>
             <th>제목</th>
             <th>출처</th>
-            <th>조회수</th>
+            <th>조회수</td>
             <!--<th>변경일</td>-->
         </tr>
+
         <%
         for(var i = 0; i < results.length; i++)
         {
         %>
         <tr>
             <td><%= i + 1 %></td>
-            <!--target="_blank"-->
-            <td><a onclick="pointup('<%= results[i].IDX %>')" target="_blank"
-                  href="<%= results[i].LINK %>"><%= results[i].TITLE %></a></td>
+            <% if(isLogin){%>
+            <td><a onclick="pointup('<%= results[i].IDX %>')" href="<%= results[i].LINK %>" target="_blank"><%= results[i].TITLE %></a></td>
+            <% } else {%>
+            <td><a onclick="pointup('<%= results[i].IDX %>')" href="<%= results[i].LINK %>" target="_blank"><%= results[i].TITLE %></a></td>
+            <% } %>
             <% if ( results[i].TYPE == 1) { %>
             <td>디씨</td>
-            <% } %>
+            <%}%>
             <% if ( results[i].TYPE == 2) { %>
             <td>오유</td>
-            <% } %>
+            <%}%>
             <td><%= results[i].TOTAL %></td>
         </tr>
         <%
         }
         %>
+
     </table>
     <div style="text-align: center">
         <% if(page > pageSize) { %>
-        [ <a href="/board/list/1" style="text-decoration: none;">◀◀</a> ]
-        [ <a href="/board/list/<%= startPage - 1 %>" style="text-decoration: none;">◀</a> ]
-        <% } else { %>
+        [ <a href="/board/M50list/1" style="text-decoration: none;">◀◀</a> ]
+        [ <a href="/board/M50list/<%=startPage-1%>" style="text-decoration: none;">◀</a> ]
+        <% } else {%>
         [ <span style="color:gray">◀◀</span> ]
         [ <span style="color:gray">◀</span> ]
         <% } %>
         &nbsp;&nbsp;
-        <% for (var i = startPage; i <= endPage; i++) { %>
-        <% if (i == page) { %>
-        [ <%= i %> ]
+        <% for (var i=startPage; i<=endPage; i++) { %>
+        <% if (i== page) {%>
+        [ <%=i%> ]
         <% } else { %>
-        [ <a href="/board/list/<%= i %>" style="text-decoration: none;"><%= i %></a> ]
+        [ <a href="/board/M50list/<%=i%>" style="text-decoration: none;"><%=i%></a> ]
         <% } %>
         <% } %>
         &nbsp;&nbsp;
         <% if (endPage < totalPage) { %>
-        [ <a href="/board/list/<%= endPage + 1 %>" style="text-decoration: none;">▶</a> ]
-        [ <a href="/board/list/<%= totalPage %>" style="text-decoration: none;">▶▶</a> ]
-        <% } else { %>
+        [ <a href="/board/M50list/<%=endPage+1%>" style="text-decoration: none;">▶</a> ]
+        [ <a href="/board/M50list/<%=totalPage%>" style="text-decoration: none;">▶▶</a> ]
+        <% } else {%>
         [ <span style="color:gray">▶</span> ]
         [ <span style="color:gray">▶▶</span> ]
         <% } %>
     </div>
 </div>
+<script>
 
-
-
-<script type="text/javascript">
     function pointup(idx) {
         $.ajax({
             url: '/board/point',
             type: 'POST',
             data: {idx : idx},
             success: function (result) {
-                for (var i = 0;i < result.length; i++){
+                for (var i = 1;i <= result.length; i++){
                     $("#s" + i + "").html(result[i].TITLE);
                     $("#s" + i + "").attr("target", "_blank");
                     $("#s" + i + "").attr("href", result[i].LINK);
@@ -77,6 +79,9 @@
             }
         });
     }
+
 </script>
-    <% include ./bar.ejs%>
+
+
+<% include ./bar.ejs%>
 <% include ../footer.ejs %>
