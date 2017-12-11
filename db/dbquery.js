@@ -288,6 +288,7 @@ module.exports.signup = function (input, callback) {
                     function (err, count) {
                         if (err) {
                             console.log("쿼리실행후 에러남");
+                            console.log(err)
                             callback(err);
                         } else {
                             console.log("쿼리실행후 에러 안남");
