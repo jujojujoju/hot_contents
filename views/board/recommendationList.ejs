@@ -39,8 +39,8 @@
     </table>
     <div style="text-align: center">
         <% if(page > pageSize) { %>
-        [ <a href="/board/M30list/1" style="text-decoration: none;">◀◀</a> ]
-        [ <a href="/board/M30list/<%=startPage-1%>" style="text-decoration: none;">◀</a> ]
+        [ <a href="#" style="text-decoration: none;">◀◀</a> ]
+        [ <a href="#" style="text-decoration: none;">◀</a> ]
         <% } else {%>
         [ <span style="color:gray">◀◀</span> ]
         [ <span style="color:gray">◀</span> ]
@@ -50,13 +50,13 @@
         <% if (i== page) {%>
         [ <%=i%> ]
         <% } else { %>
-        [ <a href="/board/M30list/<%=i%>" style="text-decoration: none;"><%=i%></a> ]
+        [ <a href="#" style="text-decoration: none;"><%=i%></a> ]
         <% } %>
         <% } %>
         &nbsp;&nbsp;
         <% if (endPage < totalPage) { %>
-        [ <a href="/board/M30list/<%=endPage+1%>" style="text-decoration: none;">▶</a> ]
-        [ <a href="/board/M30list/<%=totalPage%>" style="text-decoration: none;">▶▶</a> ]
+        [ <a href="#" style="text-decoration: none;">▶</a> ]
+        [ <a href="#" style="text-decoration: none;">▶▶</a> ]
         <% } else {%>
         [ <span style="color:gray">▶</span> ]
         [ <span style="color:gray">▶▶</span> ]
