@@ -51,7 +51,7 @@ router.get('/M10list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("10대 list success");
-            res.render('board/M10list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -67,7 +67,7 @@ router.get('/M20list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("20대 list success");
-            res.render('board/M20list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -83,7 +83,7 @@ router.get('/M30list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("30대 list success");
-            res.render('board/M30list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -99,7 +99,7 @@ router.get('/M40list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("40대 list success");
-            res.render('board/M40list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -115,7 +115,7 @@ router.get('/M50list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("50대 list success");
-            res.render('board/M50list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -131,7 +131,7 @@ router.get('/F10list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("10대여자 list success");
-            res.render('board/F10list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -147,7 +147,7 @@ router.get('/F20list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("20대여자 list success");
-            res.render('board/F20list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -163,7 +163,7 @@ router.get('/F30list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("30대여자 list success");
-            res.render('board/F30list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -179,7 +179,7 @@ router.get('/F40list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("40대여자 list success");
-            res.render('board/F40list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
@@ -195,7 +195,7 @@ router.get('/F50list/:page', function (req, res, next) {
         data['isLogin'] = req.session.info != undefined;
         if (data) {
             console.log("50대여자 list success");
-            res.render('board/F50list', data);
+            res.render('board/recommendationList', data);
 
         } else {
             console.log('result error');
